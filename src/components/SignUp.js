@@ -3,7 +3,7 @@ import Posts from "./Posts";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUp({userName, setUserName, password, setPassword}) {
-
+    let navigate = useNavigate();
     let isSuccessful
     const handleSignUp = async e => {
         e.preventDefault()
@@ -15,17 +15,22 @@ export default function SignUp({userName, setUserName, password, setPassword}) {
         },
         body: JSON.stringify({
             user: {
-            username: `${userName}`,
-            password: `${password}`
+            username: userName,
+            password: password
             }
         })
         })
         const data = await result.json()
+         isSuccessful = data.success
         console.log(data);
+        if (isSuccessful) {
+            navigate("/Posts")
+            alert("Your account has been successfully created!")
+        }
         } catch(err) {
         console.error(err);
         }
-        // isSuccessful = result.success
+        
     }
 
     return (
@@ -35,7 +40,6 @@ export default function SignUp({userName, setUserName, password, setPassword}) {
         <input type="text" placeholder="New Username Here" onChange={e => setUserName(e.target.value)}/>
         <input type="password" placeholder="New Password Here" onChange={e => setPassword(e.target.value)}/>
         <input type="submit" value="Sign Up" onClick={handleSignUp}/>
-        {/* {isSuccessful && <Posts />} */}
     </form>
 </div>    
     )

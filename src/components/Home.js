@@ -2,8 +2,9 @@ import { Link, useNavigate} from "react-router-dom"
 
 
 export default function Home({userName, setUserName, password, setPassword}) { 
-    // let navigate = useNavigate();
-    const handleLogIn = () => {
+    let navigate = useNavigate();
+    const handleLogIn = (e) => {
+    e.preventDefault()
     fetch('https://strangers-things.herokuapp.com/api/2206-ftb-pt-web-pt/users/login', {
         method: "POST",
         headers: {
@@ -18,11 +19,12 @@ export default function Home({userName, setUserName, password, setPassword}) {
         }).then(response => response.json())
         .then(result => {
             console.log(result);
-            // navigate("/Posts")
+            navigate("/Posts")
+            alert("You have successfully logged in")
         })
         .catch(console.error);
     }
-    
+
     return (
         <div>
             <h1>Log In</h1>

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 
 export default function Posts({posts, setPosts}) {
-    console.log(posts);
+    let navigate = useNavigate();
     const fetchPosts = async () => {
         try {
         const result = await fetch("https://strangers-things.herokuapp.com/api/2206-ftb-pt-web-pt/posts")
@@ -17,12 +17,16 @@ export default function Posts({posts, setPosts}) {
     useEffect(() => {
         fetchPosts()
     }, []);
+    
+    const newPost = () => {
+        navigate("/AddPost")
+    }
 
     return (
         <div className="posts">
             <h1>Posts</h1>
             <input type="text" placeholder="search for post"/>
-            <button>Add Post</button>
+            <button onClick={newPost}>Add Post</button>
             {posts.map(post => {
                 return (
                     <div key={post._id}>
