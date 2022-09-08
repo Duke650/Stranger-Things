@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import Posts from "./Posts";
-export default function Home({userName, setUserName, password, setPassword, setToken, token,}) {
+export default function Home({userName, setUserName, password, setPassword, setToken, token}) {
   const navigate = useNavigate();
 
   const handleLogIn = async (e) => {
@@ -23,18 +22,20 @@ export default function Home({userName, setUserName, password, setPassword, setT
       );
       const data = await response.json();
 
-      console.log(data);
+      if (!response.ok) { alert (data.error.message)} else { alert ("You have successfully logged in")}
+
       setToken(data.data.token);
       navigate("./Posts");
-      alert("You have successfully logged in!");
+      
     } catch (err) {
       console.error(err);
     }
   };
 
+
   return (
     <div>
-      <h1>Log In</h1>
+      <h1 className="login">Log In</h1>
       <form>
         <input
           type="text"

@@ -9,6 +9,8 @@ let App = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token") || "");
   const [postId, setPostId] = useState(null);
+  const [message, setMessage] = useState("")
+  const [canMessage, setCanMessage] = useState(false)
 
 
 
@@ -59,9 +61,44 @@ let App = () => {
     
   }
 
+  const handleMesaageClick = async userId => {
+//     try {
+//     const response = await fetch(`https://strangers-things.herokuapp.com/api/2206-ftb-pt-web-pt/posts/${userId}/messages`, {
+//         method: "POST",
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${token}`
+//         },
+//         body: JSON.stringify({
+//             message: {
+//             content: message
+//             }
+//         })
+//         })
+// const data = await response.json()
+//     console.log(data);
+
+//   } catch(err){
+//   console.error(err)
+//   }
+    setCanMessage(!canMessage)
+    console.log("clicked");
+  }
+
+  const handleLogout = () => {
+    setPassword("");
+    setUserName("");
+    setToken("");
+    alert("You have successfully logged out")
+  }
+
   return (
     <div>
       <Nav
+        canMessage={canMessage}
+        handleMessageClick={handleMesaageClick}
+        handleLogout={handleLogout}
+        setMessage={setMessage}
         posts={posts}
         setPosts={setPosts}
         userName={userName}

@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-export default function Posts({ posts, setPosts, token, handleDelete }) {
+export default function Posts({ posts, setPosts, token, handleDelete, handleMessageClick, canMessage }) {
   let navigate = useNavigate();
   
   const [searchValue, setSearchValue] = useState("");
-
-  const matches = post => {
-    const textToCheck = post.title + post.description + post.location + post.author.username;
-    return textToCheck.includes(searchValue.toLowerCase())
+  
+     const matches = post => {
+        const textToCheck = (post.title + post.description + post.location + post.author.username + post.price).toLowerCase()
+        return textToCheck.includes(searchValue.toLowerCase());
   }
 
-  const filterPosts = posts.filter(post => matches(post))
+    const filteredPosts = posts.filter(post => matches(post))
 
 
   const fetchPosts = async (e) => {
@@ -36,32 +36,38 @@ export default function Posts({ posts, setPosts, token, handleDelete }) {
     fetchPosts();
   }, [token]);
 
+  
+
   return (
     <div className="posts">
-      <h1>Posts</h1>
+      <h1>Listings</h1>
       <input
         type="text"
         placeholder="search for post"
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={e => setSearchValue(e.target.value)}
       />
       <Link to="/addPost">Add Post</Link>
-      {posts.map((post) => {
+      {filteredPosts.map((post) => {
+        console.log(post);
         return (
           <div key={post._id}>
-            <h2>{post.title}</h2>
-            <p>{post.description}</p>
-            <p>{post.price}</p>
-            <p>{post.author.username}</p>
-            <p>{post.location}</p>
-            <p>{post.willDeliver ? "Yes" : "No"}</p>
-            {post.isAuthor && (
-              <button onClick={() => handleDelete(post._id)}>DELETE</button>
-            )}
-            {post.isAuthor && <button>Edit</button>}
+            <h2>For Sale: {post.title}</h2>
+            <p>About: {post.description}</p>
+            <p>Price: {post.price}</p>
+            <p>Seller: {post.author.username}</p>
+            <p>Location: {post.location}</p>
+            <p>Available for delivery: {post.willDeliver ? "Yes" : "No"}</p>
+            {post.isAuthor &&  <button onClick={() => handleDelete(post._id)}>DELETE</button>}
+            {!post.isAuthor && token && <button onClick={handleMessageClick}>Message User</button>}
+            {canMessage && <form>
+              <input type="text" />
+              <input type="submit" />
+              </form>}
           </div>
         );
       })}
     </div>
   );
 }
+

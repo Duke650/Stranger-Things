@@ -2,22 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignUp({userName, setUserName, password, setPassword,}) {
   let navigate = useNavigate();
-  let isSuccessful;
-  // const handleSignUp = async e => {
-  //     e.preventDefault()
-  //     try {
-  //         const data = await fetchSignup(userName, password);
-  //         console.log(data);
-  //         setToken(data)
-  //         isSuccessful = data.success
-  //         if (isSuccessful) {
-  //             navigate("/Posts")
-  //             alert("Your account has been successfully created!")
-  //         }
-  //     } catch(err) {
-  //         console.error(err);
-  //     }
-  // }
+  
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
