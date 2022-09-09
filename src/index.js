@@ -5,14 +5,18 @@ import Nav from "./components/Nav";
 
 let App = () => {
   const [posts, setPosts] = useState([]);
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState(window.localStorage.getItem("userName") || "");
+  const [password, setPassword] = useState(window.localStorage.getItem("password") || "");
   const [token, setToken] = useState(window.localStorage.getItem("token") || "");
-  const [postId, setPostId] = useState(null);
-  const [message, setMessage] = useState("")
-  const [canMessage, setCanMessage] = useState(false)
 
 
+  useEffect(() => {
+    window.localStorage.setItem("password", password)
+  }, [password])
+
+  useEffect(() => {
+    window.localStorage.setItem("userName", userName)
+  }, [userName])
 
   useEffect(() => {
     window.localStorage.setItem("token", token)
@@ -61,29 +65,6 @@ let App = () => {
     
   }
 
-  const handleMesaageClick = async userId => {
-//     try {
-//     const response = await fetch(`https://strangers-things.herokuapp.com/api/2206-ftb-pt-web-pt/posts/${userId}/messages`, {
-//         method: "POST",
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${token}`
-//         },
-//         body: JSON.stringify({
-//             message: {
-//             content: message
-//             }
-//         })
-//         })
-// const data = await response.json()
-//     console.log(data);
-
-//   } catch(err){
-//   console.error(err)
-//   }
-    setCanMessage(!canMessage)
-    console.log("clicked");
-  }
 
   const handleLogout = () => {
     setPassword("");
@@ -95,10 +76,7 @@ let App = () => {
   return (
     <div>
       <Nav
-        canMessage={canMessage}
-        handleMessageClick={handleMesaageClick}
         handleLogout={handleLogout}
-        setMessage={setMessage}
         posts={posts}
         setPosts={setPosts}
         userName={userName}

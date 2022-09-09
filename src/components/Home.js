@@ -34,22 +34,21 @@ export default function Home({userName, setUserName, password, setPassword, setT
 
 
   return (
-    <div>
+    <div className="login-form">
       <h1 className="login">Log In</h1>
-      <form>
-        <input
-          type="text"
-          placeholder="Username"
-          onChange={(e) => setUserName(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input type="submit" value="Log in" onClick={handleLogIn} />
+      <form className="login-form">
+      <div className="form-floating mb-3">
+        <input type="text" className="form-control" id="floatingInput" placeholder="Username" onChange={(e) => setUserName(e.target.value)}/>
+        <label htmlFor="floatingInput">UserName</label>
+      </div>
+      <div className="form-floating">
+        <input type="password" className="form-control" id="floatingPassword" placeholder="password" onChange={(e) => setPassword(e.target.value)}/>
+        <label htmlFor="floatingPassword">Password</label>
+      </div>
+        <input type="submit" value="Log in" onClick={handleLogIn} id="login-form-btn" className="btn btn-outline-primary" />
+        
       </form>
-      <Link to="/signup">Sign Up</Link>
+      <Link to="/signup" className="signup">Dont have an account? Sign up here!</Link> 
     </div>
   );
 }

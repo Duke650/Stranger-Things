@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Post from "./Post";
 
-export default function Posts({ posts, setPosts, token, handleDelete, handleMessageClick, canMessage }) {
-  let navigate = useNavigate();
+export default function Posts({ posts, setPosts, token, handleDelete, handleMessageClick, canMessage, setMessage, message }) {
   
   const [searchValue, setSearchValue] = useState("");
   
@@ -36,35 +36,19 @@ export default function Posts({ posts, setPosts, token, handleDelete, handleMess
     fetchPosts();
   }, [token]);
 
-  
+
 
   return (
     <div className="posts">
-      <h1>Listings</h1>
-      <input
-        type="text"
-        placeholder="search for post"
-        value={searchValue}
-        onChange={e => setSearchValue(e.target.value)}
-      />
-      <Link to="/addPost">Add Post</Link>
+      <h1 id="listings">Listings</h1>
+      <div className="form-floating mb-3">
+        <input type="text" className="form-control" id="floatingInput" placeholder="Search Posts" value={searchValue} onChange={e => setSearchValue(e.target.value)}/>
+        <label htmlFor="floatingInput">Search Posts</label>
+      </div>
+      <Link to="/addPost" className="btn btn-outline-primary addpost-btn">Add Post</Link>
       {filteredPosts.map((post) => {
-        console.log(post);
         return (
-          <div key={post._id}>
-            <h2>For Sale: {post.title}</h2>
-            <p>About: {post.description}</p>
-            <p>Price: {post.price}</p>
-            <p>Seller: {post.author.username}</p>
-            <p>Location: {post.location}</p>
-            <p>Available for delivery: {post.willDeliver ? "Yes" : "No"}</p>
-            {post.isAuthor &&  <button onClick={() => handleDelete(post._id)}>DELETE</button>}
-            {!post.isAuthor && token && <button onClick={handleMessageClick}>Message User</button>}
-            {canMessage && <form>
-              <input type="text" />
-              <input type="submit" />
-              </form>}
-          </div>
+          <Post key={post._id} handleDelete={handleDelete} post={post} token={token} handleMessageClick={handleMessageClick} />
         );
       })}
     </div>

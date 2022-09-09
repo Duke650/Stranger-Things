@@ -31,20 +31,18 @@ export default function SignUp({userName, setUserName, password, setPassword,}) 
   };
 
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <form>
-        <input
-          type="text"
-          placeholder="New Username Here"
-          onChange={(e) => setUserName(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="New Password Here"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input type="submit" value="Sign Up" onClick={handleSignUp} />
+    <div className="signUp">
+      <h1 className="newAccount">Create New Account</h1>
+      <form className="login-form">
+        <div className="form-floating mb-3">
+          <input type="text" className="form-control signUpInput" id="floatingInput" placeholder="New Username" onChange={(e) => setUserName(e.target.value)}/>
+          <label htmlFor="floatingInput">New Username</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input type="text" className="form-control signUpInput" id="floatingInput" placeholder="New Password" onChange={(e) => setPassword(e.target.value)}/>
+          <label htmlFor="floatingInput">New Password</label>
+        </div>
+        <input type="submit" value="Sign Up" className="btn btn-outline-primary" onClick={handleSignUp} />
       </form>
     </div>
   );

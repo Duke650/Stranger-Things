@@ -50,47 +50,69 @@ export default function AddPost({ token }) {
   };
 
   return (
-    <div>
-      <h1>Add New Post</h1>
-      <form action="">
-        <input
+
+    <form>
+      <h1 id="createPost">Create Post</h1>
+  <ul className="wrapper">
+    <li className="form-row">
+      <label htmlFor="title">For Sale:</label>
+      <input
+          id="title"
           type="text"
           placeholder="Title"
           name="title"
           onChange={handleChange}
           value={inputField.title}
         />
-        <input
+    </li>
+    <li className="form-row">
+      <label htmlFor="about">About</label>
+      <input
+          id="about"
           type="text"
           placeholder="Description"
           name="description"
           onChange={handleChange}
           value={inputField.description}
         />
-        <input
+    </li>
+    <li className="form-row">
+      <label htmlFor="price">Price</label>
+      <input
+          id="price"
           type="text"
           placeholder="Price"
           name="price"
           onChange={handleChange}
           value={inputField.price}
         />
-        <input
+    </li>
+    <li className="form-row">
+      <label htmlFor="location">Location</label>
+      <input
+          id="location"
           type="text"
           placeholder="Location"
           name="location"
           onChange={handleChange}
           value={inputField.location}
         />
-        <label htmlFor="deliver">Willing to deliver</label>
+        </li>
+        
+        <label htmlFor="willDeliver" id="willDeliverLable">Will Deliver</label>
         <input
           type="checkbox"
-          id="deliver"
+          id="willDeliver"
           name="willDeliver"
           checked={inputField.willDeliver}
           onChange={handleChange}
         />
-        <input type="submit" value="Create Post" onClick={handleAddPost} />
-      </form>
-    </div>
+        
+    
+      <li className="form-row">
+      <button type="submit" className="btn btn-outline-primary" onClick={handleAddPost}>Create</button>
+    </li>
+  </ul>
+</form>
   );
 }
