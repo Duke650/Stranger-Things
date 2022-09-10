@@ -3,7 +3,7 @@ import { useState } from "react";
 const Post = ({ post, handleDelete, token }) => {
   const [showMessageForm, setShowMessageForm] = useState(false);
   const [message, setMessage] = useState("")
-
+    console.log(post);
 
   const handleMessageSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +29,10 @@ const Post = ({ post, handleDelete, token }) => {
       console.error(err);
     }
   };
+
+
+}
+
 
   return (
     <div key={post._id} className="user-posts">

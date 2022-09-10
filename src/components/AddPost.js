@@ -31,7 +31,6 @@ export default function AddPost({ token }) {
         }
       );
       const data = await result.json();
-      console.log(data);
     } catch (err) {
       console.error(err);
     }

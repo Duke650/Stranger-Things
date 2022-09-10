@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export default function SignUp({userName, setUserName, password, setPassword,}) {
+export default function SignUp({userName, setUserName, password, setPassword, setToken}) {
   let navigate = useNavigate();
   
   const handleSignUp = async (e) => {
@@ -22,6 +22,7 @@ export default function SignUp({userName, setUserName, password, setPassword,}) 
         }
       );
       const data = await result.json();
+      setToken(data.data.token)
       navigate("/Posts");
       alert("Your account has been successfully made");
       console.log(data);
@@ -39,8 +40,8 @@ export default function SignUp({userName, setUserName, password, setPassword,}) 
           <label htmlFor="floatingInput">New Username</label>
         </div>
         <div className="form-floating mb-3">
-          <input type="text" className="form-control signUpInput" id="floatingInput" placeholder="New Password" onChange={(e) => setPassword(e.target.value)}/>
-          <label htmlFor="floatingInput">New Password</label>
+          <input type="password" className="form-control signUpInput" id="floating" placeholder="New Password" onChange={(e) => setPassword(e.target.value)}/>
+          <label htmlFor="floating">New Password</label>
         </div>
         <input type="submit" value="Sign Up" className="btn btn-outline-primary" onClick={handleSignUp} />
       </form>

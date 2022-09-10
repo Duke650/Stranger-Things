@@ -13,7 +13,6 @@ export default function Profile({posts, handleDelete, token, userName}) {
         },
         })
             const data = await resp.json();
-            console.log(data);
             setMessages(data.data.messages)
             } catch(err) {
             console.error(err);
@@ -43,7 +42,7 @@ export default function Profile({posts, handleDelete, token, userName}) {
             <h1 className="messagePosts">Messages</h1>
             {messages.map(message => {
                 return (
-                    <div>
+                    <div key={message._id}>
                     {userName !== message.fromUser.username && 
                     <div key={message._id} className="user-posts">
                         <h3>From: {message.fromUser.username}</h3>
