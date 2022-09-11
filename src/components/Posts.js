@@ -14,29 +14,6 @@ export default function Posts({ posts, setPosts, token, handleDelete, handleMess
     const filteredPosts = posts.filter(post => matches(post))
 
 
-  const fetchPosts = async (e) => {
-    try {
-      const result = await fetch(
-        "https://strangers-things.herokuapp.com/api/2206-ftb-pt-web-pt/posts",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await result.json();
-      setPosts(data.data.posts);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, [token]);
-
-
 
   return (
     <div className="posts">
@@ -48,7 +25,7 @@ export default function Posts({ posts, setPosts, token, handleDelete, handleMess
       <Link to="/addPost" className="btn btn-outline-primary addpost-btn">Add Post</Link>
       {filteredPosts.map((post) => {
         return (
-          <Post key={post._id} handleDelete={handleDelete} post={post} token={token} handleMessageClick={handleMessageClick} />
+          <Post key={post._id} handleDelete={handleDelete} post={post} token={token} handleMessageClick={handleMessageClick} setPosts={setPosts} />
         );
       })}
     </div>

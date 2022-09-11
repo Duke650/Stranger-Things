@@ -33,7 +33,9 @@ a {
     margin-left: 20px;
 }
 
-
+#login-form-btn {
+    margin-top: 20px;
+}
 
 .login-password {
     padding-top: 20px;
@@ -73,11 +75,6 @@ a {
     border-radius: 10px;
     padding-top: 15px;
     padding-bottom: 15px;
-}
-
-.error {
-  margin-top: 10px;
-  color: red
 }
 
 .user-posts {

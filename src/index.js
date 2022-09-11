@@ -8,6 +8,7 @@ let App = () => {
   const [userName, setUserName] = useState(window.localStorage.getItem("userName") || "");
   const [password, setPassword] = useState(window.localStorage.getItem("password") || "");
   const [token, setToken] = useState(window.localStorage.getItem("token") || "");
+  const [error, setError] = useState("")
 
 
   useEffect(() => {
@@ -76,6 +77,8 @@ let App = () => {
   return (
     <div>
       <Nav
+        error={error}
+        setError={setError}
         handleLogout={handleLogout}
         posts={posts}
         setPosts={setPosts}

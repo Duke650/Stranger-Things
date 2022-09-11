@@ -1,6 +1,7 @@
 import { useState } from "react";
-
-export default function AddPost({ token }) {
+import { useNavigate } from "react-router-dom";
+export default function AddPost({ token, setPosts }) {
+  const navigate = useNavigate();
   const [inputField, setInputField] = useState({
     title: "",
     description: "",
@@ -31,6 +32,8 @@ export default function AddPost({ token }) {
         }
       );
       const data = await result.json();
+      setPosts(prev => [data.data.post, ...prev])
+      navigate("/Posts")
     } catch (err) {
       console.error(err);
     }
@@ -42,7 +45,7 @@ export default function AddPost({ token }) {
     const { name, value, type, checked } = e.target;
     setInputField((prev) => {
       return {
-        ...prev,
+        ...prev,  
         [name]: type === "checkbox" ? checked : value,
       };
     });
@@ -52,8 +55,8 @@ export default function AddPost({ token }) {
 
     <form>
       <h1 id="createPost">Create Post</h1>
-  <ul className="wrapper">
-    <li className="form-row">
+      <ul className="wrapper">
+        <li className="form-row">
       <label htmlFor="title">For Sale:</label>
       <input
           id="title"
